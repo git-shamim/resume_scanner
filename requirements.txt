@@ -1,0 +1,11 @@
+streamlit
+spacy
+grpcio-status
+google-cloud-secret-manager
+transformers
+scikit-learn
+sentence-transformers
+pdfplumber
+docx2txt
+pandas
+numpy

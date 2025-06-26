@@ -1,0 +1,22 @@
+# Virtual environments
+clean_env/
+.venv/
+venv/
+
+# Local data and helper scripts
+data/
+scripts/
+
+# Environment variables
+.env
+
+# Compiled files
+__pycache__/
+*.py[cod]
+*.so
+
+# OS/editor trash
+.DS_Store
+.vscode/
+.idea/
+*.log
