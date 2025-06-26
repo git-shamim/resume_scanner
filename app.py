@@ -3,9 +3,14 @@ import streamlit as st
 from utils.file_handler import extract_text_from_file
 from utils.fitment_evaluator import evaluate_fitment
 from utils.improvement_suggester import suggest_improvements
-
+import os
 from dotenv import load_dotenv
-load_dotenv()
+from utils.improvement_suggester import suggest_improvements
+
+load_dotenv(dotenv_path=".env")  # <-- explicitly point to the file in root
+
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+load_dotenv()  # Automatically loads .env from root
 
 st.title("📄 Resume Fitment & Improvement Analyzer")
 

@@ -23,6 +23,9 @@ COPY . .
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Install spaCy model
+RUN python -m spacy download en_core_web_sm
+
 # (Optional) Validate spaCy model setup without failing the build
 RUN python -m spacy validate || true
 

@@ -1,18 +1,19 @@
-# utils/improvement_suggester.py
 import os
 from groq import Groq
 from dotenv import load_dotenv
 from google.cloud import secretmanager
 
-load_dotenv()
+# ✅ Ensure .env is loaded from project root
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+load_dotenv(dotenv_path=os.path.join(BASE_DIR, '.env'))
+
 
 def get_api_key():
-    # Try local .env
     api_key = os.getenv("GROQ_API_KEY")
     if api_key:
         return api_key
 
-    # Try GCP secret manager (when deployed)
+    # fallback for GCP (only works if ADC is set up)
     try:
         client = secretmanager.SecretManagerServiceClient()
         project_id = os.getenv("GCP_PROJECT")
@@ -23,6 +24,7 @@ def get_api_key():
         raise RuntimeError(f"Could not load GROQ_API_KEY: {e}")
 
 client = Groq(api_key=get_api_key())
+
 
 def suggest_improvements(resume_text, jd_text):
     prompt = f"""
@@ -38,6 +40,6 @@ List clear bullet points on what the candidate should add or improve in the resu
 """
     chat_completion = client.chat.completions.create(
         messages=[{"role": "user", "content": prompt}],
-        model="mixtral-8x7b-32768"
+        model="llama3-70b-8192"  # ✅ updated to supported model
     )
     return chat_completion.choices[0].message.content

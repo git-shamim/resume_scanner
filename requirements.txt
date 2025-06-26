@@ -9,3 +9,5 @@ pdfplumber
 docx2txt
 pandas
 numpy
+groq
+python-dotenv
